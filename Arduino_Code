@@ -1,0 +1,51 @@
+/*
+
+*/
+// Delay times
+int staticColour = 10000;
+int transitionTime = 10;
+
+// Declare pins
+int red_pin = 11;
+int green_pin = 10;
+int blue_pin = 9;
+
+
+// Start with neutral values
+int red_val = 0;
+int blue_val = 0;
+int green_val = 0;
+
+
+void setup() {
+  pinMode(red_pin, OUTPUT);
+  pinMode(green_pin, OUTPUT);
+  pinMode(blue_pin, OUTPUT);
+}
+
+void loop() {
+  
+  // Declare next colour value
+  int next_red_val = random(0, 255);
+  int next_blue_val = random(0, 255);
+  int next_green_val = random(0, 255);
+  
+  // Change from colour_val to next_colour_val
+  while (red_val != next_red_val || blue_val != next_blue_val || green_val != next_green_val) {
+    if (red_val != next_red_val){
+      red_val = (red_val > next_red_val) ? red_val-1 : red_val+1;
+      analogWrite(red_pin, red_val);
+    }
+    if (green_val != next_green_val){
+      green_val = (green_val > next_green_val) ? green_val-1 : green_val+1;
+      analogWrite(green_pin, green_val);
+    }
+    if (blue_val != next_blue_val){
+      blue_val = (blue_val > next_blue_val) ? blue_val-1 : blue_val+1;
+      analogWrite(blue_pin, blue_val);
+    }
+    delay(transitionTime);
+  }
+  // Stays at the colour for a few seconds
+  delay(staticColour);
+}
